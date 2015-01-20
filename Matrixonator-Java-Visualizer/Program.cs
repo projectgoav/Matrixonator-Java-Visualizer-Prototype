@@ -21,7 +21,7 @@ namespace Matrixonator_Java_Visualizer
                 {
                     sk.Connect("127.0.0.1", 9876);
                 }
-                catch { Console.WriteLine("REFUSED"); }
+                catch { Console.WriteLine("NOT FOUND"); }
 
                 Thread.Sleep(100);
             }
@@ -29,7 +29,7 @@ namespace Matrixonator_Java_Visualizer
             Console.WriteLine("Connected!");
             Console.WriteLine("----------\n");
 
-            byte[] bytes = new byte[256];
+            byte[] bytes = new byte[4];
 
             while (sk.Connected == true)
             {
@@ -42,9 +42,12 @@ namespace Matrixonator_Java_Visualizer
                 }
                 catch (SocketException e)
                 {
-                    Console.WriteLine("{0} Error code: {1}.", e.Message, e.ErrorCode);
+                    //Console.WriteLine("{0} Error code: {1}.", e.Message, e.ErrorCode);
                 }
             }
+
+            Console.WriteLine("Connection was closed.");
+            Console.ReadKey();
         }
     }
 }
