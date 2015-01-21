@@ -30,15 +30,23 @@ namespace Matrixonator_Java_Visualizer
             Console.WriteLine("----------\n");
 
             byte[] bytes = new byte[4];
+            sbyte PacketOrder = 0;
 
             while (sk.Connected == true)
             {
                 try
                 {
                     int i = sk.Receive(bytes);
+
+                    if (bytes[0] == PacketOrder) { Console.WriteLine("Packet Recieved"); }
+                    else { Console.WriteLine("Invalid Packet recieved! Expected: {0}, Actual: {1}", PacketOrder, bytes[0]); }
+
                     string Data = Encoding.UTF8.GetString(bytes);
                     if ((Data == "") || (Data == null)) { Data = "NULL"; }
                     Console.WriteLine(Data);
+
+                    if (PacketOrder + 1 > 3) { PacketOrder = 0; }
+                    else { PacketOrder++; }
                 }
                 catch (SocketException e)
                 {
