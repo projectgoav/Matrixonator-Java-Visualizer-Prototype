@@ -38,6 +38,15 @@ namespace Matrixonator_Java_Visualizer
                 {
                     int i = sk.Receive(bytes);
 
+                    sbyte GG = (sbyte)bytes[0];
+
+                    byte Lower = (byte)GG;
+                    byte Upper = (byte)(GG >> 4);
+
+                    byte Order = (byte)(Upper | Lower);
+
+                    Console.WriteLine("Order: " + Order);
+
                     if (bytes[0] == PacketOrder) { Console.WriteLine("Packet Recieved"); }
                     else { Console.WriteLine("Invalid Packet recieved! Expected: {0}, Actual: {1}", PacketOrder, bytes[0]); }
 
